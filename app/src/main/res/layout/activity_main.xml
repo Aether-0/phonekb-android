@@ -1,31 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PhoneKB — send text to paired Linux host" />
+        android:text="PhoneKB — send text to Linux" />
+
+    <RadioGroup
+        android:id="@+id/radioMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioBluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth HID"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioNetwork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Network / ADB (TCP)" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/edtHost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Host (IP or 127.0.0.1 for ADB)" />
+
+        <EditText
+            android:id="@+id/edtPort"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:hint="7777"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chkAdbReverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use adb reverse (for USB)" />
+
+    <Button
+        android:id="@+id/btnConnectNetwork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect Network"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/edtInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type text here" />
+        android:hint="Text to send"
+        android:layout_marginTop="12dp" />
 
-    <Button
-        android:id="@+id/btnSendText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send text" />
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
-    <Button
-        android:id="@+id/btnSendA"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnSendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send text" />
+
+        <Button
+            android:id="@+id/btnSendA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send 'a'"
+            android:layout_marginLeft="8dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send 'a'" />
+        android:text="Status: idle"
+        android:layout_marginTop="12dp" />
 
-</LinearLayout>
+  </LinearLayout>
+
+</ScrollView>

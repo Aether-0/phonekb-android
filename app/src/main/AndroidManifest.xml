@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Android 12+ runtime permissions; include for compatibility -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
@@ -12,6 +13,7 @@
 
     <application
         android:label="PhoneKB"
+        android:icon="@mipmap/ic_launcher"
         android:allowBackup="true">
         <activity android:name=".MainActivity"
             android:exported="true">
