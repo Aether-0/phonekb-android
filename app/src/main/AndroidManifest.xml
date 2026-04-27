@@ -14,7 +14,8 @@
     <application
         android:label="PhoneKB"
         android:icon="@mipmap/ic_launcher"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        android:theme="@style/Theme.PhoneKB">
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
