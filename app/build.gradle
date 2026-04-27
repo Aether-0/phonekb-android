@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "com.example.phonekb"
     compileSdkVersion 33
     defaultConfig {
         applicationId "com.example.phonekb"
