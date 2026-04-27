@@ -29,17 +29,20 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
 
-      - name: Build release APK and sign
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: assembleRelease --no-daemon --stacktrace
+          gradle-version: '8.4'
+
+      - name: Sign APK
         run: |
           set -e
           KEYSTORE=release.keystore
           KEYPASS=password
-          # generate a temporary keystore for signing
           if [ ! -f "$KEYSTORE" ]; then
             keytool -genkeypair -v -keystore "$KEYSTORE" -storepass "$KEYPASS" -keypass "$KEYPASS" -alias phonekb -dname "CN=PhoneKB, OU=Dev, O=You, L=City, S=State, C=US" -keyalg RSA -keysize 2048 -validity 10000
           fi
-          chmod +x ./gradlew || true
-          ./gradlew assembleRelease --no-daemon --stacktrace
           ANDR_HOME=${ANDROID_HOME:-$ANDROID_SDK_ROOT}
           BUILD_TOOLS=33.0.2
           ZIPALIGN="$ANDR_HOME/build-tools/$BUILD_TOOLS/zipalign"
@@ -51,6 +54,7 @@ jobs:
           if [ ! -f "$UNSIGNED" ]; then
             echo "Unsigned APK not found at expected paths"; exit 1
           fi
+          echo "Using tools: $ZIPALIGN and $APKSIGNER"
           "$ZIPALIGN" -v -p 4 "$UNSIGNED" app/build/outputs/apk/release/app-release-aligned.apk
           "$APKSIGNER" sign --ks "$KEYSTORE" --ks-pass pass:$KEYPASS --key-pass pass:$KEYPASS --out app/build/outputs/apk/release/app-release-signed.apk app/build/outputs/apk/release/app-release-aligned.apk
           echo "Signed APK: app/build/outputs/apk/release/app-release-signed.apk"
